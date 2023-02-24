@@ -1,9 +1,9 @@
 $name = $env:COMPUTERNAME
-$file = "\\EC2AMAZ-PQI6RL3\Station_Backups\$name.zip"
+$file = "\\Main_Server\Station_Backups\$name.zip"
 
 $compress = @{
   Path = "C:\dsa_station"
-  CompressionLevel = "Fastest"
+  CompressionLevel = "Optimal"
   DestinationPath = $file
 }
 if (Test-Path $file) {
