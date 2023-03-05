@@ -1,21 +1,20 @@
 $name = $env:COMPUTERNAME
-$file = "\\Main_Server\Station_Backups\$name.zip"
+$sourceFolder = "C:\dsa_station"
+$destinationFolder = "\\Shared_Computer\Station_Backups"
+$zipFilePath = "C:\$name.zip"
 
-$compress = @{
-  Path = "C:\dsa_station"
-  CompressionLevel = "Optimal"
-  DestinationPath = $file
-}
-if (Test-Path $file) {
+Stop-Service -Name "dglux_server"
+
+if (!(Test-Path $zipFilePath)) {
     
-    Write-Host "File Already exists"
-
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $zipFilePath, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+    
 } else {
 
-    Stop-Service -Name "dglux_server"
+    Compress-Archive -Path $sourceFolder -Update -DestinationPath $zipFilePath -Force
 
-    Compress-Archive @compress -Force
-
-    Start-Service -Name "dglux_server"
-    
 }
+
+Copy-Item $zipFilePath $destinationFolder -Recurse
+
+Start-Service -Name "dglux_server"
