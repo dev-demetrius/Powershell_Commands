@@ -1,10 +1,10 @@
 #---------------------------------------------------------
-This script creates a backup of a folder containing #data, 
-compresses it, and copies it to a destination folder #while 
+<#This script creates a backup of a folder containing data, 
+compresses it, and copies it to a destination folder while 
 also stopping and starting a service. Note that certain 
 folders may be used by an application and cannot be 
 moved, copied, or deleted #until the application has 
-terminated.
+terminated.#>
 #---------------------------------------------------------
 
 
