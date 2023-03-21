@@ -1,3 +1,10 @@
+#--------------------------------------------------
+<#This PowerShell script runs an infinite loop that
+continuously checks the status of a VPN connection. 
+If the connection is currently disconnected, the 
+script executes a batch to reconnect to server.#>
+#---------------------------------------------------
+
 # Loop to check connection status every 5 minutes
 while ($true)
 {
