@@ -1,6 +1,6 @@
 #-------------------------------------------------------------
  This script is used to gather disabled Active Directory users
- and email the result.
+ and email the result using a Gmail account.
 #-------------------------------------------------------------
 
 
@@ -21,7 +21,7 @@ $DisabledUsers = Get-ADUser -Filter {Enabled -eq $False} -Properties *
 if ($DisabledUsers) {
     # Construct the email body
     $EmailSubject = "List of Disabled User Accounts in Active Directory"
-    $EmailBody = "The following user accounts are currently disabled in Active Directory:`r`n`r`n"
+    $EmailBody = "The following user accounts are currently disabled in Database:`r`n`r`n"
     foreach ($User in $DisabledUsers) {
         $EmailBody += "- $($User.SamAccountName) ($($User.EmailAddress))"
     }
@@ -30,5 +30,5 @@ if ($DisabledUsers) {
     Send-MailMessage -To $EmailTo -From $EmailFrom -Subject $EmailSubject -Body $EmailBody -SmtpServer $SMTPServer -Port $SMTPPort -UseSsl -Credential $Credential
 }
 else {
-    Write-Output "No disabled user accounts found in Active Directory."
+    Write-Output "No disabled user accounts found."
 }
